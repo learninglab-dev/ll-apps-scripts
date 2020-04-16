@@ -9,7 +9,7 @@ var CERTIFICATES_FOLDER_ID = '14LMqhoWCLhG6mJEv0DhjTMOZtopFrDiy'
 
 // 3. Put the ID for the GDoc with the email body here and add a subject line
 var EMAIL_TEMPLATE_ID = '1oFT_hWvVOLDE7RJY659JSqOXaCLEw0QIjhJ08XMdHvY'
-var EMAIL_SUBJECT = 'Q Award Certificate (A gift from "Robot Stuff")'
+var EMAIL_SUBJECT = 'Q Award Certificate'
 
 
 
@@ -20,11 +20,28 @@ var EMAIL_SUBJECT = 'Q Award Certificate (A gift from "Robot Stuff")'
 function onOpen() {
   SpreadsheetApp
     .getUi()
-    .createMenu('Robot Stuff')
+    .createMenu('Scripts')
     .addItem('Create pdf', 'createPdf')
     .addItem('Send pdf', 'sendPdf')
     .addToUi()
 } 
+
+/**
+ * This function turn the email body document into html.
+ */
+
+function exportAsHTML(documentId){
+  var forDriveScope = DriveApp.getStorageUsed(); //needed to get Drive Scope requested
+  var url = "https://docs.google.com/feeds/download/documents/export/Export?id="+documentId+"&exportFormat=html";
+  var param = {
+    method      : "get",
+    headers     : {"Authorization": "Bearer " + ScriptApp.getOAuthToken()},
+    muteHttpExceptions:true,
+  };
+  var html = UrlFetchApp.fetch(url,param).getContentText();
+  var file = DriveApp.createFile(documentId + ".html", html);
+  return html
+}
 
 
 /**
@@ -37,8 +54,10 @@ function getEmailBody(firstName) {
   var openTemplateCopy = DocumentApp.openById(templateCopyId)
   var templateContent = openTemplateCopy.getBody()
   templateContent.replaceText('%FIRSTNAME%', firstName)
-  var text = templateContent.getText()
-  return text 
+  openTemplateCopy.saveAndClose()
+  var html = exportAsHTML(templateCopyId)
+  templateCopy.setTrashed(true)
+  return html 
 }
 
 
@@ -59,6 +78,7 @@ function sendPdf() {
     
   for(; currentRowIndex <= lastRowIndex; currentRowIndex++ ) {
    var firstName = activeSheet.getRange(currentRowIndex, firstNameColumn, 1, 1).getValue()
+   var firstName = activeSheet.getRange(currentRowIndex, firstNameColumn, 1, 1).getValue()
    var EMAIL_BODY = getEmailBody(firstName)
    var recipient = activeSheet.getRange(currentRowIndex, emailColumn, 1, 1).getValue()
    var pdfLink = activeSheet.getRange(currentRowIndex, pdfLinksColumn, 1, 1).getValue()
@@ -67,10 +87,13 @@ function sendPdf() {
    var pdf = DriveApp.getFileById(pdfId)
   
    MailApp.sendEmail(
-     recipient, 
-     EMAIL_SUBJECT, 
-     EMAIL_BODY,
-     {attachments: [pdf]})
+     {
+       to: recipient, 
+       subject: EMAIL_SUBJECT, 
+       htmlBody: EMAIL_BODY,
+       attachments: [pdf]
+     }
+   )
   }    
 }
 
@@ -80,7 +103,7 @@ function sendPdf() {
  */
 
 function createPdf() {
-  var fileNameColumnName = 'File Name'
+  var fileNameColumnName = 'FILENAME'
   var pdfLinkColumnName = 'PDF'
   var certificatesFolder = DriveApp.getFolderById(CERTIFICATES_FOLDER_ID)
   
