@@ -73,7 +73,7 @@ function sendPdf() {
   var currentRowIndex = activeRange.getRowIndex()
   var lastRowIndex = activeRange.getLastRow()
   var pdfLinksColumn = headerRow[0].findIndex(item => item == 'PDF')+1
-  var emailColumn = headerRow[0].findIndex(item => item == 'Email')+1
+  var emailColumn = headerRow[0].findIndex(item => item == 'EMAIL')+1
   var firstNameColumn = headerRow[0].findIndex(item => item == 'FIRSTNAME')+1
     
   for(; currentRowIndex <= lastRowIndex; currentRowIndex++ ) {
