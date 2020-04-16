@@ -20,7 +20,7 @@ var EMAIL_SUBJECT = 'Q Award Certificate'
 function onOpen() {
   SpreadsheetApp
     .getUi()
-    .createMenu('Scripts')
+    .createMenu('Robot Stuff')
     .addItem('Create pdf', 'createPdf')
     .addItem('Send pdf', 'sendPdf')
     .addToUi()
