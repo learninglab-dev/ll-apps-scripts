@@ -1,6 +1,10 @@
 # Q Certificate PDF Creation and Mailing Automation
 Hey all, here are the instructions for automatically generating the PDFs and emails to distribute for the Q awards. 
 
+
+Note: You will want all docs, spreadsheets, and folders to be owned by the account you'll be emailing from.
+
+
 ## Step 1: Format the spreadsheet
 Open up the Google Spreadsheet you're using to track responses from awardees, it will look like the first sheet of [this spreadsheet](https://docs.google.com/spreadsheets/d/1ZiBLvL39-youUb3qSK-hub4-NQ_wL0HJeKWa7u753ek/edit#gid=1515223909). 
 Start by duplicating the form responses onto the next sheet, for safety's sake.
@@ -32,7 +36,7 @@ You will need to have the following materials ready to go:
 ### Paste your code
 Once you have your documents and folders open, go to the LL Dev Github and copy the code that Lauren wrote [here](https://github.com/learninglab-dev/ll-apps-scripts/commit/d1e0ab3e9169ea345795aca9bcd6d19dcffe3657).
 
-Go back to your spreadsheet and click `Tools` > `Script Editor`. This will open a window with the beginning address `script.google.com`. Paste Lauren's code in the box on that page and click the `Save` icon. You can save it as `Q code` or whatever title you'd like. 
+Go back to your spreadsheet and click `Tools` > `Script Editor`. This will open a window with the beginning address `script.google.com`. Start by deleting anything that's written in the box on that page. Then, paste Lauren's code in the box and click the `Save` icon. You can save it as `Q code` or whatever title you'd like. 
 
 The only part of the code you will need to interact with is the very top:
 ```sh
