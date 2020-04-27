@@ -34,7 +34,7 @@ You will need to have the following materials ready to go:
 
 ## Step 3: Code!
 ### Paste your code
-Once you have your documents and folders open, go to the LL Dev Github and copy the code that Lauren wrote [here](https://github.com/learninglab-dev/ll-apps-scripts/commit/d1e0ab3e9169ea345795aca9bcd6d19dcffe3657).
+Once you have your documents and folders open, go to the LL Dev Github and copy the code that Lauren wrote [here](https://github.com/learninglab-dev/ll-apps-scripts/blob/master/q-certs-automator.js).
 
 Go back to your spreadsheet and click `Tools` > `Script Editor`. This will open a window with the beginning address `script.google.com`. Start by deleting anything that's written in the box on that page. Then, paste Lauren's code in the box and click the `Save` icon. You can save it as `Q code` or whatever title you'd like. 
 
